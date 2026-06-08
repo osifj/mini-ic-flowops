@@ -698,12 +698,12 @@ def cmd_ask(args: argparse.Namespace) -> int:
     query = " ".join(args.query).strip()
     if not query:
         raise SystemExit("请输入问题，例如：flowctl ask 怎么看日志")
-    words = [word.lower() for word in re.findall(r"[\w\u4e00-\u9fff]+", query)]
+    words = build_search_terms(query)
     matches = []
     for path in sorted(DOCS_DIR.glob("*.md")):
         text = path.read_text(encoding="utf-8", errors="ignore")
         lowered = text.lower()
-        score = sum(lowered.count(word) for word in words)
+        score = sum(lowered.count(word) * (5 if len(word) > 1 else 1) for word in words)
         if score:
             first_line = next((line.strip() for line in text.splitlines() if line.strip()), path.name)
             matches.append((score, path, first_line))
@@ -713,6 +713,19 @@ def cmd_ask(args: argparse.Namespace) -> int:
     for score, path, title in sorted(matches, reverse=True)[:5]:
         print(f"- {rel(path)}  score={score}  {title}")
     return 0
+
+
+def build_search_terms(query: str) -> list[str]:
+    terms: set[str] = set()
+    stop_chars = set("怎么如何查看看一个一下的了呢吗")
+    for token in re.findall(r"[\w\u4e00-\u9fff]+", query.lower()):
+        terms.add(token)
+        if re.search(r"[\u4e00-\u9fff]", token):
+            for index in range(len(token) - 1):
+                pair = token[index : index + 2]
+                if not any(char in stop_chars for char in pair):
+                    terms.add(pair)
+    return sorted(terms, key=lambda item: (-len(item), item))
 
 
 def cmd_clean(args: argparse.Namespace) -> int:
@@ -789,4 +802,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
