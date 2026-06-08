@@ -14,6 +14,26 @@
 
 本项目不包含真实公司数据、真实 PDK 或商业 EDA 工具。它的目标是让你先学会“工作方式”。
 
+## 零基础先看这里
+
+如果你只有几天时间准备实习，不要先翻所有文件。
+
+先打开：
+
+```text
+START_HERE.md
+docs/3_day_crash_plan.md
+docs/every_command_explained.md
+```
+
+在 Linux 里也可以直接运行：
+
+```bash
+./bin/flowctl learn
+```
+
+这个命令会告诉你每天该看什么、跑什么。
+
 ## 你现在怎么用
 
 在 Linux 虚拟机或 WSL 里进入本目录：
@@ -29,6 +49,7 @@ chmod +x bin/flowctl
 ./bin/flowctl qa --design alu
 ./bin/flowctl compare run_001 run_002
 ./bin/flowctl ask "怎么看日志"
+./bin/flowctl learn
 ```
 
 如果 Linux 里没有 Tcl，可以先跑通项目；程序会用 Python 内置模拟器代替 Tcl。之后建议安装 Tcl：
@@ -47,6 +68,17 @@ sudo dnf install -y tcl git make
 ## 先读哪几个文档
 
 建议顺序：
+
+1. `START_HERE.md`
+2. `docs/3_day_crash_plan.md`
+3. `docs/windows_to_linux_vm_steps.md`
+4. `docs/every_command_explained.md`
+5. `docs/project_file_walkthrough.md`
+6. `docs/code_reading_guide.md`
+7. `docs/final_self_test.md`
+8. `docs/internship_speaking_notes.md`
+
+如果你只想先跑通，再读：
 
 1. `docs/00_read_me_first.md`
 2. `docs/env_setup.md`
@@ -81,4 +113,3 @@ mini-ic-flowops/
 - QA 自动化检查什么
 - 测试数据怎么收集、统计和生成报告
 - 如果以后把模拟步骤替换成真实 EDA 工具，该改哪里
-

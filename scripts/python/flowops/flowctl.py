@@ -29,6 +29,18 @@ TCL_DIR = ROOT / "scripts" / "tcl"
 
 TCL_STEPS = {"synth", "floorplan", "place", "route", "signoff"}
 
+LEARNING_DOCS = [
+    ("START_HERE.md", "零基础入口，先看这里"),
+    ("docs/3_day_crash_plan.md", "3 到 5 天冲刺计划"),
+    ("docs/windows_to_linux_vm_steps.md", "Windows + Linux 虚拟机操作步骤"),
+    ("docs/every_command_explained.md", "每条命令逐行解释"),
+    ("docs/project_file_walkthrough.md", "项目文件逐个讲解"),
+    ("docs/code_reading_guide.md", "代码阅读顺序"),
+    ("docs/log_debugging.md", "日志和失败排查"),
+    ("docs/final_self_test.md", "最终自测清单"),
+    ("docs/internship_speaking_notes.md", "实习表达模板"),
+]
+
 FALLBACK_METRICS = {
     "synth": {
         "rtl_files": 1,
@@ -715,6 +727,38 @@ def cmd_ask(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_learn(_args: argparse.Namespace) -> int:
+    print("mini-ic-flowops 零基础学习路线")
+    print()
+    print("先不要硬啃全部代码。按这个顺序来：")
+    for index, (path, description) in enumerate(LEARNING_DOCS, start=1):
+        exists = "OK" if (ROOT / path).exists() else "MISSING"
+        print(f"{index}. {path:<38} {description} [{exists}]")
+    print()
+    print("第 1 天必须跑通：")
+    print("  chmod +x bin/flowctl")
+    print("  source config/env.sh")
+    print("  flowctl doctor")
+    print("  flowctl run --design alu --flow testchip")
+    print("  flowctl status")
+    print()
+    print("第 2 天看懂这些输出：")
+    print("  runs/run_001/logs/flow.log")
+    print("  runs/run_001/manifest.json")
+    print("  runs/run_001/reports/flow_report.html")
+    print()
+    print("第 3 天看代码主线：")
+    print("  bin/flowctl")
+    print("  config/testchip_flow.yaml")
+    print("  scripts/python/flowops/flowctl.py")
+    print("  scripts/tcl/synth.tcl")
+    print()
+    print("遇到问题可以搜文档，例如：")
+    print('  flowctl ask "怎么看日志"')
+    print('  flowctl ask "IP QA 检查什么"')
+    return 0
+
+
 def build_search_terms(query: str) -> list[str]:
     terms: set[str] = set()
     stop_chars = set("怎么如何查看看一个一下的了呢吗")
@@ -786,6 +830,9 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("ask", help="在 docs 中做关键词检索")
     p.add_argument("query", nargs="+")
     p.set_defaults(func=cmd_ask)
+
+    p = sub.add_parser("learn", help="显示零基础学习路线")
+    p.set_defaults(func=cmd_learn)
 
     p = sub.add_parser("clean", help="清理生成结果")
     p.add_argument("--yes", action="store_true")
