@@ -1,0 +1,13 @@
+# Generated flow outputs
+runs/run_*/
+reports/*
+work/*
+
+# Keep placeholder directories
+!runs/.gitkeep
+!reports/.gitkeep
+!work/.gitkeep
+
+# Python cache
+__pycache__/
+*.pyc

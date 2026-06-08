@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export FLOWOPS_ROOT="$PROJECT_ROOT"
+
+python3 "$PROJECT_ROOT/scripts/python/flowops/flowctl.py" "$@"
+

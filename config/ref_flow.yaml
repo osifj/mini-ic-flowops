@@ -1,0 +1,12 @@
+# Reference Flow: 基础参考流程
+name: ref
+description: "基础 RTL 到 signoff 的模拟参考流程"
+steps:
+  - precheck
+  - synth
+  - floorplan
+  - place
+  - route
+  - signoff
+  - report
+

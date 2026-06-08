@@ -1,0 +1,17 @@
+* text=auto
+
+# Scripts should keep LF endings so Linux can execute them reliably.
+*.sh text eol=lf
+bin/flowctl text eol=lf
+config/env.sh text eol=lf
+*.py text eol=lf
+*.tcl text eol=lf
+Makefile text eol=lf
+
+# IC/data training files are also easier to diff with LF.
+*.v text eol=lf
+*.sdc text eol=lf
+*.yaml text eol=lf
+*.csv text eol=lf
+*.md text eol=lf
+

@@ -1,0 +1,7 @@
+name: alu
+version: 0.1.0
+owner: training
+language: verilog
+top_module: alu
+description: "用于 mini-ic-flowops 的示例 ALU IP"
+

@@ -1,0 +1,14 @@
+# Testchip Flow: 在基础流程后增加 IP QA 和测试数据收集
+name: testchip
+description: "模拟 testchip 设计、QA、测试数据分析的完整流程"
+steps:
+  - precheck
+  - synth
+  - floorplan
+  - place
+  - route
+  - signoff
+  - ip_qa
+  - data_collect
+  - report
+
